@@ -6,7 +6,7 @@ If you want to try and use it for yourself, read on.
 
 # Prerequisites
 
-### Environment Variables JSON
+## Environment Variables JSON
 
 Exluded using the `.gitignore`, there is a file called `environment_variables.json` housed within the python folder which is vital for the script to run. An example of the structure of that file can be found in the `variables_template.json` file at the root of this project. You can copy it into the python folder and rename it. Inside are 3 variables which are described below:
 - `search_path`  
@@ -16,11 +16,11 @@ Exluded using the `.gitignore`, there is a file called `environment_variables.js
 - `header`  
   Is a variable which can be used to inject custom HTML into the header. I use it to inject my analytics HTML.
 
-### Python
+## Python
 
 I used python 3.11.9 to creat this project. It has not been tested with any other version.
 
-### Folder Structure
+## Folder Structure
 
 The folder structure of the project is as follows:
 
@@ -79,4 +79,70 @@ Descriptions for core folders:
 
 # JSON Structures
 
+## Recipe Structure
 
+Below is an example of a blank `recipe.json` that includes all possible fields. Underneath that will be a description of all of the fields and their required content as well as whether they are optional or required.
+
+```json
+{
+  "@context": "https://schema.org/",
+  "@type": "Recipe",
+  "folder": "folder_name",
+  "name": "Pretty Name",
+  "image": [
+    "image_name_0.jpg"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "F"
+  },
+  "datePublished": "YYYY-MM-DD",
+  "lastMod": "YYYY-MM-DD",
+  "description": "",
+  "keywords": "",
+  "prepTime": "PT",
+  "cookTime": "PT",
+  "totalTime": "PT",
+  "recipeYield": "X Servings",
+  "recipeCategory": "",
+  "recipeCuisine": "",
+  "nutrition": {
+    "@type": "NutritionInformation",
+    "calories": "X calories per serving (estimated)"
+  },
+  "recipeIngredient": [
+    ""
+  ],
+  "ingredientKeywords": [
+    ""
+  ],
+  "equipment": [
+    ""
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "name": "",
+      "url": 1,
+      "text": ""
+    },
+    {
+      "@type": "HowToStep",
+      "name": "",
+      "url": 2,
+      "text": ""
+    }
+  ],
+  "notes": [
+    ""
+  ],
+  "sharedNotes": [
+    ""
+  ],
+  "relatedRecipes": [
+    ""
+  ]
+}
+```
+
+### `@context`
