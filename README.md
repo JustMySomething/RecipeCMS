@@ -4,6 +4,8 @@ The CMS behind [JustMy.Cooking](https://justmy.cooking). The aim of this CMS was
 
 If you want to try and use it for yourself, read on.
 
+---
+
 # Prerequisites
 
 ## Environment Variables JSON
@@ -76,6 +78,8 @@ Descriptions for core folders:
   This folder is empty until you run the script, after which it will be filled with keyword html files.
 - `root/staging`  
   This folder isn't required, it's just where I keep random things before I promote them to the `root/recipes` folder.
+
+---
 
 # JSON Structures
 
