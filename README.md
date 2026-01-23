@@ -74,5 +74,9 @@ Descriptions for core folders:
   If any of your recipes share notes, you can put the json definition of those shared notes in here.
 - `root/recipes/keywords`  
   This folder is empty until you run the script, after which it will be filled with keyword html files.
+- `root/staging`  
+  This folder isn't required, it's just where I keep random things before I promote them to the `root/recipes` folder.
 
-  
+# JSON Structures
+
+
