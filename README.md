@@ -154,27 +154,27 @@ Below is an example of a blank `recipe.json` that includes all possible fields. 
 ```
 
 - ### `@context`  
-  Type: String
-  Value: Fixed, it must have the value `https://schema.org/`
+  Type: String  
+  Value: Fixed, it must have the value `https://schema.org/`  
 
 - ### `@type`
-  Type: String
-  Value: Fixed, it must have the value `Recipe`
+  Type: String  
+  Value: Fixed, it must have the value `Recipe`  
 
 - ### `folder`
-  Type: String
-  Value: The folder name where the recipe JSON file is located. 
-  Example: If you create a recipe in the folder `beef_curry` then the value of folder must be `beef_curry`.
+  Type: String  
+  Value: The folder name where the recipe JSON file is located.   
+  Example: If you create a recipe in the folder `beef_curry` then the value of folder must be `beef_curry`.  
 
 - ### `name`
-  Type: String
-  Value: The pretty name for the recipe that will show as the title at the top of the page and in the recipe cards in lists.
-  Example: If you create a recipe in the folder `beef_curry` then the name of the recipe might be something like `Beef Curry`.
+  Type: String  
+  Value: The pretty name for the recipe that will show as the title at the top of the page and in the recipe cards in lists.  
+  Example: If you create a recipe in the folder `beef_curry` then the name of the recipe might be something like `Beef Curry`.  
 
 - ### `image`
-  Type: String
-  Value: The pretty name for the recipe that will show as the title at the top of the page and in the recipe cards in lists.
-  Example: If you create a recipe in the folder `beef_curry` then the name of the recipe might be something like `Beef Curry`.
+  Type: String  
+  Value: The pretty name for the recipe that will show as the title at the top of the page and in the recipe cards in lists.  
+  Example: If you create a recipe in the folder `beef_curry` then the name of the recipe might be something like `Beef Curry`.  
 
 ### `author`
 
