@@ -2,7 +2,7 @@
 
 The CMS behind [JustMy.Cooking](https://justmy.cooking). The aim of this CMS was to create a static HTML website that could be uploaded anywhere and did not rely on JS frameworks that required updating or maintaining. This could be hosted anywhere, on anything and it is as secure as the host. For example, Cloudflare Pages!
 
-If you want to try and use it for yourself, read on.
+If you want to try and use it for yourself, read on. Do take note though, this is a hobby project and very much my first python project. This is a complete mess. I intend on updating it with new features and fixing this spaghetti code mess (somewhat) but there are no guarantees.
 
 ---
 
@@ -105,6 +105,7 @@ Below is an example of a blank `recipe.json` that includes all possible fields. 
   "description": "",
   "keywords": "",
   "prepTime": "PT",
+  "marinatingTime": "PT",
   "cookTime": "PT",
   "totalTime": "PT",
   "recipeYield": "X Servings",
@@ -114,6 +115,9 @@ Below is an example of a blank `recipe.json` that includes all possible fields. 
     "@type": "NutritionInformation",
     "calories": "X calories per serving (estimated)"
   },
+  "diet":[
+    ""
+  ],
   "recipeIngredient": [
     ""
   ],
@@ -150,3 +154,69 @@ Below is an example of a blank `recipe.json` that includes all possible fields. 
 ```
 
 ### `@context`
+
+### `@type`
+
+### `folder`
+
+### `name`
+
+### `image`
+
+### `author`
+
+Contains:
+- `author.@type`
+- `author.name`
+
+### `datePublished`
+
+### `lastMod`
+
+### `description`
+
+### `keywords`
+
+### `prepTime`
+
+### `marinatingTime`  
+**OPTIONAL**
+
+### `cookTime`
+
+### `totalTime`
+
+### `recipeYield`
+
+### `recipeCategory`
+
+### `recipeCuisine`
+
+### `nutrition`
+
+Contains:
+- `nutrition.@type`
+- `nutrition.calories`
+
+### `recipeIngredient`
+
+### `ingredientKeywords`
+
+### `equipment`  
+**OPTIONAL**
+
+### `recipeInstructions`
+
+Contains:
+- `recipeInstructions.@type`
+- `recipeInstructions.name`
+- `recipeInstructions.url`
+- `recipeInstructions.text`
+
+### `notes`
+
+### `sharedNotes`  
+**OPTIONAL**
+
+### `relatedRecipes`  
+**OPTIONAL**
