@@ -153,7 +153,13 @@ for root, _, files in os.walk(search_path):
 
                 json_schema['image'] = []
                 for image in data['image']:
-                    json_schema['image'].append(f"https://justmy.cooking/{data['folder']}/{image}") # Use image name directly
+                    json_schema['image'].append(f"https://justmy.cooking/{data['folder']}/{image}")
+
+                cuisine_list = [data['recipeCuisine']]  if not isinstance(data['recipeCuisine'], list) else data['recipeCuisine']
+                category_list = [data['recipeCategory']]  if not isinstance(data['recipeCategory'], list) else data['recipeCategory']
+
+                json_schema['recipeCuisine'] = cuisine_list[0]
+                json_schema['recipeCategory'] = category_list[0]
 
                 f.write(f"{get_opener()}")
                 f.write(f"<script type=\"application/ld+json\">{json.dumps(json_schema)}</script>")
@@ -291,9 +297,6 @@ for root, _, files in os.walk(search_path):
                 for note in data['notes']:
                     f.write(f"<li>{note}</li>")
                 f.write(f"</ul>")
-
-                cuisine_list = [data['recipeCuisine']]  if not isinstance(data['recipeCuisine'], list) else data['recipeCuisine']
-                category_list = [data['recipeCategory']]  if not isinstance(data['recipeCategory'], list) else data['recipeCategory']
 
                 f.write(f"</br>")
                 f.write(f"<div class=\"keywordContainer\">")
