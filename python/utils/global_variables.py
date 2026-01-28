@@ -1,10 +1,12 @@
+import json
+import os
+
 search_path = ""
 directory_path = ""
 custom_header_html = ""
-
+current_directory = ""
 
 remove_html_extension = True
-
 
 keyword_map = {}
 cuisine_map = {}
@@ -53,3 +55,22 @@ def get_recipe(folder):
         if recipe["folder"] == folder:
             return recipe
         
+def get_variables():
+    environment_file = "environment_variables.json"
+    current_directory = os.getcwd()
+    
+    environment_path = os.path.join(current_directory, "python", environment_file)
+    with open(environment_path, 'r') as f:
+        data = json.load(f)
+
+        global search_path
+        search_path = data['search_path']
+        global directory_path
+        directory_path = data['url']
+        global custom_header_html
+        custom_header_html = data['header']
+
+def print_variables():
+    print(search_path)
+    print(directory_path)
+    print(custom_header_html)

@@ -1,4 +1,7 @@
 from utils.global_variables import *
+get_variables()
+from utils.global_variables import *
+
 from utils.html_footer import *
 from utils.html_header import *
 from utils.html_recipe_blocks import *
@@ -13,18 +16,6 @@ import random
 import copy
 import math
 from datetime import datetime
-
-# fetch variables that aren't to be exposed in github
-environment_file = "environment_variables.json"
-current_directory = os.getcwd()
-environment_path = os.path.join(current_directory, "python", environment_file)
-with open(environment_path, 'r') as f:
-    data = json.load(f)
-
-    search_path = data['search_path']
-    directory_path = data['url']
-    custom_header_html = data['header']
-
 
 # Fetch and compile data from json files
 for root, _, files in os.walk(search_path):
@@ -190,44 +181,15 @@ for root, _, files in os.walk(search_path):
                 f.write(f"<div class=\"keywords border\" style=\"background-color: unset;\"><p>{data['recipeYield']}</p></div>")
                 f.write(f"</div>")
 
-                cuisine_list = [data['recipeCuisine']]  if not isinstance(data['recipeCuisine'], list) else data['recipeCuisine']
-                category_list = [data['recipeCategory']]  if not isinstance(data['recipeCategory'], list) else data['recipeCategory']
-
-                f.write(f"</br>")
-                f.write(f"<div class=\"keywordContainer\">")
-                f.write(f"<h3>Categories:</h3>")
-                for category_linked in category_list:
-                    category_to_replace = ""
-                    for category_name in category_map:
-                        if category_name in category_linked:
-                            if len(category_name) > len(category_to_replace):
-                                category_to_replace = category_name
-                    link = format_link(f"{directory_path}/keywords/{category_to_replace.lower().replace(' ', '_')}.html")
-                    category_linked = category_linked.replace(category_to_replace, f"<a href=\"{link}\"><p>{category_to_replace}</p></a>")
-                    f.write(f"<div class=\"keywords border\">{category_linked}</div>")
-                f.write(f"</div>")
-
-                f.write(f"</br>")
-                f.write(f"<div class=\"keywordContainer\">")
-                f.write(f"<h3>Cuisines:</h3>")
-                for cuisine_linked in cuisine_list:
-                    cuisine_to_replace = ""
-                    for cuisine_name in cuisine_map:
-                        if cuisine_name in cuisine_linked:
-                            if len(cuisine_name) > len(cuisine_to_replace):
-                                cuisine_to_replace = cuisine_name
-                    link = format_link(f"{directory_path}/keywords/{cuisine_to_replace.lower().replace(' ', '_')}.html")
-                    cuisine_linked = cuisine_linked.replace(cuisine_to_replace, f"<a href=\"{link}\"><p>{cuisine_to_replace}</p></a>")
-                    f.write(f"<div class=\"keywords border\">{cuisine_linked}</div>")
-                f.write(f"</div>")
-
                 f.write(f"</br>")
                 f.write(f"<div class=\"keywordContainer\">")
                 f.write(f"<h3>Time:</h3>")
 
-                if iso8601_to_human_readable(data['prepTime']) != "0 minutes":
+                if iso8601_to_human_readable(data['prepTime']) != "0 minutes" and iso8601_to_human_readable(data['prepTime']) != "0 hours":
                     f.write(f"<div class=\"keywords border\" style=\"background-color: unset;\"><p>Prep: {iso8601_to_human_readable(data['prepTime'])}</p></div>")
-                if iso8601_to_human_readable(data['cookTime']) != "0 minutes":
+                if "marinatingTime" in data:
+                    f.write(f"<div class=\"keywords border\" style=\"background-color: unset;\"><p>Marinate: {iso8601_to_human_readable(data['marinatingTime'])}</p></div>")
+                if iso8601_to_human_readable(data['cookTime']) != "0 minutes" and iso8601_to_human_readable(data['cookTime']) != "0 hours":
                     f.write(f"<div class=\"keywords border\" style=\"background-color: unset;\"><p>Cook: {iso8601_to_human_readable(data['cookTime'])}</p></div>")
                 f.write(f"<div class=\"keywords border\" style=\"background-color: unset;\"><p>Total: {iso8601_to_human_readable(data['totalTime'])}</p></div>")
 
@@ -241,6 +203,17 @@ for root, _, files in os.walk(search_path):
                     for equipment in data['equipment']:
                         link = format_link(f"{directory_path}/keywords/{equipment.lower().replace(' ', '_')}.html")
                         f.write(f"<div class=\"keywords border\"><a href=\"{link}\"><p>{equipment}</p></a></div>")
+
+                    f.write(f"</div>")
+
+                if "diet" in data:
+                    f.write(f"</br>")
+                    f.write(f"<div class=\"keywordContainer\">")
+                    f.write(f"<h3>Dietary:</h3>")
+                    
+                    for diet in data['diet']:
+                        link = format_link(f"{directory_path}/keywords/{diet.lower().replace(' ', '_')}.html")
+                        f.write(f"<div class=\"keywords border\"><a href=\"{link}\"><p>{diet}</p></a></div>")
 
                     f.write(f"</div>")
 
@@ -318,6 +291,38 @@ for root, _, files in os.walk(search_path):
                 for note in data['notes']:
                     f.write(f"<li>{note}</li>")
                 f.write(f"</ul>")
+
+                cuisine_list = [data['recipeCuisine']]  if not isinstance(data['recipeCuisine'], list) else data['recipeCuisine']
+                category_list = [data['recipeCategory']]  if not isinstance(data['recipeCategory'], list) else data['recipeCategory']
+
+                f.write(f"</br>")
+                f.write(f"<div class=\"keywordContainer\">")
+                f.write(f"<h3>Categories:</h3>")
+                for category_linked in category_list:
+                    category_to_replace = ""
+                    for category_name in category_map:
+                        if category_name in category_linked:
+                            if len(category_name) > len(category_to_replace):
+                                category_to_replace = category_name
+                    link = format_link(f"{directory_path}/keywords/{category_to_replace.lower().replace(' ', '_')}.html")
+                    category_linked = category_linked.replace(category_to_replace, f"<a href=\"{link}\"><p>{category_to_replace}</p></a>")
+                    f.write(f"<div class=\"keywords border\">{category_linked}</div>")
+                f.write(f"</div>")
+
+                f.write(f"</br>")
+                f.write(f"<div class=\"keywordContainer\">")
+                f.write(f"<h3>Cuisines:</h3>")
+                for cuisine_linked in cuisine_list:
+                    cuisine_to_replace = ""
+                    for cuisine_name in cuisine_map:
+                        if cuisine_name in cuisine_linked:
+                            if len(cuisine_name) > len(cuisine_to_replace):
+                                cuisine_to_replace = cuisine_name
+                    link = format_link(f"{directory_path}/keywords/{cuisine_to_replace.lower().replace(' ', '_')}.html")
+                    cuisine_linked = cuisine_linked.replace(cuisine_to_replace, f"<a href=\"{link}\"><p>{cuisine_to_replace}</p></a>")
+                    f.write(f"<div class=\"keywords border\">{cuisine_linked}</div>")
+                f.write(f"</div>")
+
                 f.write(f"</div>")
 
                 if "sharedNotes" in data:

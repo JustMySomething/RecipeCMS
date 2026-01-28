@@ -16,6 +16,7 @@
   "keywords": "",
   "prepTime": "PT",
   "cookTime": "PT",
+  "marinatingTime": "PT",
   "totalTime": "PT",
   "recipeYield": "X Servings",
   "recipeCategory": "",
@@ -24,6 +25,9 @@
     "@type": "NutritionInformation",
     "calories": "X calories per serving (estimated)"
   },
+  "diet": [
+    ""
+  ],
   "recipeIngredient": [
     ""
   ],
