@@ -2,6 +2,8 @@
 
 The CMS behind [JustMy.Cooking](https://justmy.cooking). The aim of this CMS was to create a static HTML website that could be uploaded anywhere and did not rely on JS frameworks that required updating or maintaining. This could be hosted anywhere, on anything and it is as secure as the host. For example, Cloudflare Pages!
 
+Instead of being more like a classic CMS where you can interact with a UI and everything is very dynamic, this is just a Python script that reads a bunch of JSON formatted recipes and produces all of your HTML and JS for hosting wherever you want.
+
 If you want to try and use it for yourself, read on. Do take note though, this is a hobby project and very much my first python project. This is a complete mess. I intend on updating it with new features and fixing this spaghetti code mess (somewhat) but there are no guarantees.
 
 ---
@@ -183,60 +185,149 @@ Some fields, such as `diet` don't exist within the official recipe schema. Other
   **Example**: If you create a recipe in the folder `beef_curry` then you might have a few images. The image field would then be array looking like `["beef_curry_0.jpg", "beef_curry_1.jpg", "beef_curry_2.jpg"]`  
   **Notes**: Currently only the first image in the array is used. The first image is used as the image within recipe cards as well as the image used at the top of the recipes page.
 
-### `author`
-
-Contains:
-- `author.@type`
-- `author.name`
+- ### `author`
+  **Type**: Object  
+  **Value**: Contains `author.@type` and `author.name`  
+  - `author.@type`
+    **Type**: String  
+    **Value**: You can use any value supported by the official recipe schema but I just use `Person`  
+  - `author.name`
+    **Type**: String  
+    **Value**: Whatever name you like. This would be the name of the person that created the recipe.  
 
 ### `datePublished`
+  **Type**: String   
+  **Value**: This is the date you published the recipe in YYYY-MM-DD format.  
+  **Example**: 2026-01-30  
+  **Notes**: Shows up in the metadata section of the recipe page underneath the main image.
 
 ### `lastMod`
+  **Type**: String   
+  **Value**: This is the date you last modified the recipe in YYYY-MM-DD format.  
+  **Example**: 2026-02-15  
+  **Notes**: If this is greater than the value of `datePublished` then it will show up on the recipe page beside `datePublished`.
 
 ### `description`
+  **Type**: String    
+  **Value**: This is the description for your recipe  
+  **Example**: Great juicy chicken wings made for... idk.   
 
 ### `keywords`
+  **Type**: String    
+  **Value**: Comma space seperated list of keywords.   
+  **Example**: `Wings, BBQ, Food, Something`   
+  **Notes**: These keywords are only used in the recipe schema metadata attached to the HTML of each page and don't actually show up anywhere.
 
 ### `prepTime`
+  **Type**: String    
+  **Value**: The time for preparation in iso8601 format.   
+  **Example**: For 2 hours and 30 minutes it would be `PT2H30M`   
+  **Notes**: The format is what is used in the official recipe schema.
 
 ### `marinatingTime`  
 **OPTIONAL**
+  **Type**: String    
+  **Value**: The time for marinating in iso8601 format.   
+  **Example**: For 2 hours and 30 minutes it would be `PT2H30M`   
+  **Notes**: The format is what is used in the official recipe schema.
 
 ### `cookTime`
+  **Type**: String    
+  **Value**: The active cooking time in iso8601 format.   
+  **Example**: For 2 hours and 30 minutes it would be `PT2H30M`   
+  **Notes**: The format is what is used in the official recipe schema.
 
 ### `totalTime`
+  **Type**: String    
+  **Value**: The total time is takes to make the recipe in iso8601 format. This is from start to finish.   
+  **Example**: For 2 hours and 30 minutes it would be `PT2H30M`   
+  **Notes**: The format is what is used in the official recipe schema.
 
 ### `recipeYield`
+  **Type**: String    
+  **Value**: The amount made. This could be serving counts or total amount produced.   
+  **Example**: `4 Servings` or `250ml` or `10 Slices`   
 
 ### `recipeCategory`
+  **Type**: String[]    
+  **Value**: The type of recipe like a main meal or snack or drink.   
+  **Example**: An example for wontons could be `["Side Dish", "Appetizer", "Starter", "Soup Component"]`    
+  **Notes**: The script will take the first value and use that for the recipe schema for the HTML pages it generates. However each value from the whole array will be used for linking the recipe to pages containing all other recipes in that category. These values are also used for the search function.
 
 ### `recipeCuisine`
+  **Type**: String[]    
+  **Value**: The (rough) origin for the recipe.   
+  **Example**: An example for wontons could be `["Chinese", "Asian"]`    
+  **Notes**: The script will take the first value and use that for the recipe schema for the HTML pages it generates. However each value from the whole array will be used for linking the recipe to pages containing all other recipes in that cuisine. These values are also used for the search function.
 
 ### `nutrition`
-
-Contains:
-- `nutrition.@type`
-- `nutrition.calories`
+**OPTIONAL**
+  **Type**: Object  
+  **Value**: Contains `nutrition.@type` and `nutrition.calories`. While it is optional, SEO optimizers have suggested that I include it so I do.   
+  - `nutrition.@type`
+    **Type**: String  
+    **Value**: You can use any value supported by the official recipe schema but I just use `NutritionInformation`  
+  - `nutrition.calories`
+    **Type**: String  
+    **Value**: This can really be any string but I normally format it as `30 Calories (Estimated)` because I estimate the calories rather than doing proper calculations.  
 
 ### `recipeIngredient`
+  **Type**: String[]    
+  **Value**: An array of strings, each string being an ingredient. These are to be human readable. Additionally you can add empty strings to add breaks or add colons to the end of a string to make it a header.   
+  **Example**: You could have something like `["Wonton Filling:", "500g Pork Mince", "", "Other:", "40 Wonton Wrappers"]`   
+  **Notes**: The above example would have 2 headings and a break inbetween the sections allowing for better presentation. These headers and breaks are removed from this field for the actual JSON metadata attached to the HTML files produced as they aren't supported in the actual recipe schema.
 
 ### `ingredientKeywords`
+  **Type**: String[]    
+  **Value**: An array of strings, each string being an ingredient keyword. Each of these should not be plurals, including things like seeds. Instead of Sesame Seeds it would be Sesame Seed.     
+  **Example**: Using the above wonton example for ingredients you could have `["Pork", "Pork Mince", "Wonton Wrapper"]`   
+  **Notes**: These keywords are used for linking purposes allowing the script to generate ingredient pages that contain all recipes using that ingredient. Links to these ingredient pages are embeded in the list of ingredients generated on each recipe page. Even though the keywords should not be plural, the script will find plural variations for linking in the ingredients list. If your keywords and ingredients lists don't line up the linking wont work. These are also used for the search function.
 
 ### `equipment`  
 **OPTIONAL**
+  **Type**: String[]    
+  **Value**: An array of strings, each string being an equipment used for preparing the recipe.    
+  **Example**: For the wontons you would have `["Bowl"]`. You definitely can add as many things as you like, such as knives and spoons, however I normally just include the major items.   
+  **Notes**: These values are used for linking to pages that contain all recipes that use the equipment.
 
 ### `recipeInstructions`
-
-Contains:
-- `recipeInstructions.@type`
-- `recipeInstructions.name`
-- `recipeInstructions.url`
-- `recipeInstructions.text`
+  **Type**: Object[]   
+  **Value**: Contains `recipeInstructions.@type`, `recipeInstructions.name`, `recipeInstructions.url` and `recipeInstructions.text`.   
+  - `recipeInstructions.@type`  
+    **Type**: String   
+    **Value**: It is always `HowToStep`  
+  - `recipeInstructions.name`  
+    **Type**: String    
+    **Value**: This is a brief name of the step.  
+    **Example**: This could be something like `Fold Wontons` or `Mix Filling`  
+    **Notes**: This value is not used on the website but in the metadata.   
+  - `recipeInstructions.url`  
+    **Type**: Integer   
+    **Value**: The number of the step.   
+    **Example**: `1` or `2` etc  
+    **Notes**: This number is then transformed into an actual URL for the recipe schema  
+  - `recipeInstructions.text`  
+    **Type**: String  
+    **Value**: This is the actual full detail description for a step.
+    **Example**: For the wontons `Add the pork mince, garlic and other filling ingredients and mix thoroughly ensuring even distribution of ingredients.`  
+    **Notes**: This value is used to actually populate the steps section on each recipes page.  
 
 ### `notes`
+  **Type**: String[]    
+  **Value**: An array of strings where each string is a note about this specific recipe.    
+  **Example**: For wontons `["The timings for these wontons is based on me making them with my family", "I normally fit the filling into about 40 wrappers"]`   
+  **Notes**: These notes should be unique to the recipe and each one will show up in the notes section of the recipe HTML produced.
 
 ### `sharedNotes`  
 **OPTIONAL**
+  **Type**: String[]    
+  **Value**: An array of strings where each string is the name of a shared notes JSON.   
+  **Example**: As an example my beef jerky recipes all share notes, they're all stored in `jerky.json` which can be referenced like `["jerky"]`. You can specify multiple if there are multiple shared notes.  
+  **Notes**: This field references the name of shared notes within the `shared_notes` folder. This allows you to have multiple recipes share relevant notes preventing you from having to maintain the same notes across multiple recipes.
 
 ### `relatedRecipes`  
 **OPTIONAL**
+  **Type**: String[]    
+  **Value**: An array of strings where each string is the value of `folder` for another recipe.   
+  **Example**: For wontons you could have `["wonton_soup", "hotpot"]`   
+  **Notes**: This effects what other recipes are shown on the HTML page for this recipe. If not specified, the script will just link 4 random recipes.
