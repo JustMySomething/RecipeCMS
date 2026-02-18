@@ -71,6 +71,17 @@ for root, _, files in os.walk(search_path):
                     else:
                         equipment_map[equipment] = [data]
 
+            if "diet" in data:
+                diets = data['diet']
+                for diet in diets:
+                    if diet not in small_diet_map:
+                        small_diet_map.append(diet)
+                for diet in diets:
+                    if diet in diet_map:
+                        diet_map[diet].append(data)
+                    else:
+                        diet_map[diet] = [data]
+
             if "sharedNotes" in data:
                 notes = data['sharedNotes']
                 for note in notes:
@@ -161,6 +172,13 @@ for root, _, files in os.walk(search_path):
                 json_schema['recipeCuisine'] = cuisine_list[0]
                 json_schema['recipeCategory'] = category_list[0]
 
+                if "diet" in data:
+                    json_schema['suitableForDiet'] = []
+                    for diet in data['diet']:
+                        if diet in ["Diabetic", "Gluten Free", "Halal", "Hindu", "Kosher", "Low Calorie", "Low Fat", "Low Lactose", "Low Salt", "Vegan", "Vegetarian"]:
+                            json_schema['suitableForDiet'].append(diet.replace(" ", "") + "Diet")
+
+
                 f.write(f"{get_opener()}")
                 f.write(f"<script type=\"application/ld+json\">{json.dumps(json_schema)}</script>")
                 f.write(f"<title>{data['name']} - Just My Cooking</title>")
@@ -184,7 +202,7 @@ for root, _, files in os.walk(search_path):
                 f.write(f"<div class=\"keywords border\" style=\"background-color: unset;\"><p>Published: {data['datePublished']}</p></div>")
                 if data['datePublished'] != data['lastMod']:
                     f.write(f"<div class=\"keywords border\" style=\"background-color: unset;\"><p>Last Modified: {data['lastMod']}</p></div>")
-                f.write(f"<div class=\"keywords border\" style=\"background-color: unset;\"><p>{data['recipeYield']}</p></div>")
+                f.write(f"<div class=\"keywords border\" style=\"background-color: unset;\"><p>Creates: {data['recipeYield']}</p></div>")
                 f.write(f"</div>")
 
                 f.write(f"</br>")
@@ -691,6 +709,7 @@ create_keyword_pages(cuisine_map, "Recipes that are", "(roughly) in origin")
 create_keyword_pages(category_map, "", "recipes")
 create_keyword_pages(ingredient_map, "Recipes that contain", "as an ingredient")
 create_keyword_pages(equipment_map, "Recipes that require a", "")
+create_keyword_pages(diet_map, "Recipes for a", "diet")
 
 # Create all keywords page
 html_name = "all_keywords.html"

@@ -13,6 +13,7 @@ cuisine_map = {}
 category_map = {}
 ingredient_map = {}
 equipment_map = {}
+diet_map = {}
 listacle_map = {}
 recipes = []
 ingredient_prefix = {}
@@ -22,6 +23,7 @@ small_cuisine_map = []
 small_category_map = []
 small_ingredient_map = []
 small_equipment_map = []
+small_diet_map = []
 small_recipes = []
 
 smallest_recipes = []

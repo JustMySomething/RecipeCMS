@@ -12,7 +12,7 @@
     },
     "datePublished": "2025-07-12",
     "lastMod": "2025-07-12",
-    "description": "A jumbo version of the classic Portuguese dessert, these tarts feature a flaky, buttery puff pastry crust filled with a rich, creamy custard. The custard is infused with hints of cinnamon, lemon, and vanilla, and the tarts are baked at a high temperature to achieve their signature caramelized, slightly scorched tops. Perfect for a sweet treat any time of day.",
+    "description": "A jumbo version of the classic Portuguese dessert. These tarts feature a flaky, buttery puff pastry crust filled with a rich, creamy custard. The custard is infused with hints of cinnamon, lemon, and vanilla, and the tarts are baked at a high temperature to achieve their signature caramelized, slightly scorched tops. Perfect for a sweet treat any time of day.",
     "prepTime": "PT5M",
     "cookTime": "PT45M",
     "totalTime": "PT50M",
@@ -92,7 +92,7 @@
       },
       {
         "@type": "HowToStep",
-        "text": "Heat oven to 250C. Grease your cupcake pan. Roll the 2 sheets of puff pastry into 1 big log. It should be about 4cm wide. Cut into about 4cm long chunks. If using shop bought sheets, you'll get 6 nicely sized ones and have some leftover on the edges.",
+        "text": "Heat oven to 250C. Grease your cupcake pan with butter. Roll the 2 sheets of puff pastry into 1 big log. It should be about 4cm wide. Cut into about 4cm long chunks. If using shop bought sheets, you'll get 6 nicely sized ones and have some leftover on the edges.",
         "name": "Prep pastry",
         "url": 4
       },
@@ -110,11 +110,14 @@
       }
     ],
     "notes": [
-      "Should make about 6 tarts if using a large muffin tray. The muffin tray I have measures 4.5cm deep and 9cm wide. Wuld probably work better with a deeper but equally wide tray.",
-      "Be careful not to overfill the tarts otherwise they will overflow when baked. To try and avoid this form your pastry and make it go above the top of the tray.",
+      "Should make about 6 tarts if using a large muffin tray. The muffin tray I have measures 4.5cm deep and 9cm wide. Would probably work better with a deeper but equally wide tray.",
+      "Be careful not to overfill the tarts otherwise they will overflow when baked. To try and avoid this, form your pastry and make it go above the top of the tray.",
       "The amount of pastry specified will make pretty thick pastry walls. This is how I like them but you could definitely get away with less pastry.",
       "For a tangy twist add 2 tsp of tamarind paste when whisking in the egg yolks.",
-      "Puff pastry sheets I use are about 26cm x 26cm."
+      "Puff pastry sheets I use are about 26cm x 26cm.",
+      "You can easily halve the size of these but use the same tray size. For each tart, is 1/12 of the pastry and don't fill them as much.",
+      "Greasing the cupcake pan with butter is important for getting a nice browned pastry wall.",
+      "For the most ideal result, use slightly sweetened puff pastry. If not using sweetened, at least use butter puff pastry."
     ],
     "relatedRecipes": [
         "puff_pastry"
